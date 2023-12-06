@@ -49,3 +49,4 @@ class BaseModel:
 		self.__dict__["__class__"] = self.__class__.__name__
 		return self.__dict__
 
+
