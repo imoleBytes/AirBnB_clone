@@ -1,9 +1,8 @@
 """This module house the BaseModel Class on which other classes inherit from"""
 
+import models
 from uuid import uuid4
 from datetime import datetime
-from models import storage
-
 
 
 class BaseModel:
@@ -20,7 +19,7 @@ class BaseModel:
 			self.id = str(uuid4())
 			self.created_at = datetime.today()
 			self.updated_at = datetime.today()
-			storage.new(self)
+			models.storage.new(self)
 		else:
 			for key, value in kwargs.items():
 				if key != "__class__":
@@ -39,7 +38,7 @@ class BaseModel:
 	def save(self):
 		"""updates `updated_at` with the current datetime"""
 		self.updated_at = datetime.now()
-		storage.save()
+		models.storage.save()
 		
 
 
