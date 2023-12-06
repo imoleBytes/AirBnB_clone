@@ -2,6 +2,9 @@
 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
+
+
 
 class BaseModel:
 	"""BaseModel defines all common attributes/methods for other classes"""
@@ -17,10 +20,12 @@ class BaseModel:
 			self.id = str(uuid4())
 			self.created_at = datetime.today()
 			self.updated_at = datetime.today()
+			storage.new(self)
 		else:
 			for key, value in kwargs.items():
 				if key != "__class__":
 					if key in ["created_at", "updated_at"]:
+						# the line below is to convert the string value to a datetime object
 						key_obj = datetime.strptime(kwargs[key], "%Y-%m-%dT%H:%M:%S.%f")
 						setattr(self, key, key_obj)
 					else:
@@ -34,6 +39,9 @@ class BaseModel:
 	def save(self):
 		"""updates `updated_at` with the current datetime"""
 		self.updated_at = datetime.now()
+		storage.save()
+		
+
 
 	def to_dict(self):
 		"""returns a dictionary containing all keys/values of the instance"""
