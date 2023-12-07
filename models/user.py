@@ -1,7 +1,11 @@
-#!/bin/python3
-from base_model import BaseModel
+#!/usr/bin/python3
+
+from models.base_model import BaseModel
 """this contains the User Class"""
 
-
-obj = BaseModel()
-print(obj)
+class User(BaseModel):
+	"""User class definition"""
+	email = ""
+	password = ""
+	first_name = ""
+	last_name = ""

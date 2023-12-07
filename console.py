@@ -3,6 +3,7 @@
 import cmd, sys, json
 from models import storage, FileStorage
 from models.base_model import BaseModel
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
 	"""Prompt the user with "(hbnb)" before each command."""
