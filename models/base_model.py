@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 """This module house the BaseModel Class on which other classes inherit from"""
 
 import models
@@ -48,5 +50,3 @@ class BaseModel:
 		self.updated_at = str(self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f"))
 		self.__dict__["__class__"] = self.__class__.__name__
 		return self.__dict__
-
-
