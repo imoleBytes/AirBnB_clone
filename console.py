@@ -28,17 +28,43 @@ class HBNBCommand(cmd.Cmd):
 			args = arg.split()
 			if len(args) == 0:
 				print("** class name missing **")
-			else:
-				if args[0] not in HBNBCommand.cmds:
+			elif args[0] not in HBNBCommand.cmds:
 					print("** class doesn't exist **")
-				else:
-					obj = eval(args[0])()
-					print(obj.id)
-					storage.save()
-					
-	
+			else:
+				obj = eval(args[0])()
+				print(obj.id)
+				storage.save()
+	def do_show(self, arg):
+		"""Prints the string representation of an instance based
+		on the class name and id.
+		Ex: $ show BaseModel 1234-1234-1234.
+		  """
+		args = self.validate_arg(arg)
+		if not isinstance(args, list):
+			return
+		if len(args) == 1:
+			print("** instance id missing **")
+			return
+		all_objts = storage.all()
+		if f"{args[0]}.{args[1]}" not in all_objts:
+			print("** no instance found **")
+		else:
+			print(all_objts[f"{args[0]}.{args[1]}"])
 
 
+	@classmethod
+	def validate_arg(cls, arg):
+		"""validate the arguments. -1 for missing class,
+		 -2 for class not exist and list of args for pass"""
+		args = arg.split()
+		if len(args) == 0:
+			print("** class name missing **")
+			return -1
+		elif args[0] not in cls.cmds:
+				print("** class doesn't exist **")
+				return -2
+		else:
+			return args
 
 
 
