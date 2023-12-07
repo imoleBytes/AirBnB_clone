@@ -46,7 +46,7 @@ class FileStorage:
 				for obj in objectdicts.values():
 					class_name = obj["__class__"]
 					# del obj["__class__"]
-					self.new(eval(class_name)(**obj))	# eval(class_name)()here is why those classes are imported
+					self.new(eval(class_name)(**obj)) # eval(class_name)()here is why those classes are imported
 		except FileNotFoundError:
 			return
 
