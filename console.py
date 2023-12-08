@@ -27,21 +27,27 @@ class HBNBCommand(cmd.Cmd):
 		]
 
 	def do_quit(self, arg):
-		"""This cmd quit the console by returning True"""
+		"""quit
+		This cmd quit the console by returning True
+		"""
 		return True
 
                         
 	def do_EOF(self, arg):                               
-		"""Exit the command interpreter (Ctrl+D)"""
-		print("exiting...")  # Add a newline before exiting
-		sys.exit(0)
+		"""EOF
+		Exit the command interpreter (Ctrl+D)
+		"""
+		print()
+		return True
 
 	def emptyline(self):
 		"""Do nothing on empty line"""
 		pass
     
 	def do_create(self, arg):
-			"""Creates a new instance of BaseModel and save to the Json file"""
+			"""create <class>
+			Creates a new instance of <class> and save to the Json file
+			"""
 			args = arg.split()
 			if len(args) == 0:
 				print("** class name missing **")
@@ -52,10 +58,11 @@ class HBNBCommand(cmd.Cmd):
 				print(obj.id)
 				storage.save()
 	def do_show(self, arg):
-		"""Prints the string representation of an instance based
+		"""show <class> <instance.id>
+		Prints the string representation of an instance based
 		on the class name and id.
-		Ex: $ show BaseModel 1234-1234-1234.
-		  """
+		e.g: $ show BaseModel 1234-1234-1234.
+		"""
 		args = self.validate_arg(arg)
 		if not isinstance(args, list):
 			return
@@ -69,7 +76,10 @@ class HBNBCommand(cmd.Cmd):
 			print(all_objts[f"{args[0]}.{args[1]}"])
 	
 	def do_destroy(self, arg):
-		"""Deletes an instance based on the class name and id"""
+		"""destroy <class> <instance.id>
+		Deletes an instance based on the class name and id
+		e.g: $ destroy User 1234-1234-1234
+		"""
 		args = self.validate_arg(arg)
 		if not isinstance(args, list):
 			return
@@ -84,8 +94,11 @@ class HBNBCommand(cmd.Cmd):
 			storage.save()
 
 	def do_all(self, arg):
-		"""Prints all string representation of all instances 
+		"""all or all <class>
+		Prints all string representation of all instances
 		based or not on the class name.
+		e.g: $ all			(this prints instances of all classes)
+		e.g: $ all User		(this prints instances of all User only)
 		"""
 		args = arg.split()
 		if len(args) == 0:
