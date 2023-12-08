@@ -4,11 +4,27 @@ import cmd, sys, json
 from models import storage, FileStorage
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
+
 
 class HBNBCommand(cmd.Cmd):
 	"""Prompt the user with "(hbnb)" before each command."""
 	prompt = "(hbnb) "
-	cmds = ["BaseModel", "User"]
+	cmds = \
+		[
+			"BaseModel",
+			"User",
+			"Place",
+			"State",
+			"City",
+			"Amenity",
+			"Review"
+		]
 
 	def do_quit(self, arg):
 		"""This cmd quit the console by returning True"""
