@@ -117,7 +117,50 @@ class HBNBCommand(cmd.Cmd):
 		"""Updates an instance based on the class name and id
 		  by adding or updating attribute
 		"""
-		pass
+		args = self.validate_arg(arg)
+		if not isinstance(args, list):
+			return
+		if len(args) == 1:
+			print("** instance id missing **")
+			return
+		all_objts = storage.all()
+		if f"{args[0]}.{args[1]}" not in all_objts:
+			print("** no instance found **")
+		elif len(args) == 2:
+			print("** attribute name missing **")
+		elif len(args) == 3:
+			print("** value missing **")
+		else:
+			obj = all_objts[(f"{args[0]}.{args[1]}")]
+			try:
+				attributeValue = getattr(obj, args[2])
+			except AttributeError:
+				setattr(obj, args[2], args[3])
+			else:
+				if isinstance(attributeValue, int):
+					args[3] = int(args[3])
+				elif isinstance(attributeValue, float):
+					args[3] = float(args[3])
+				setattr(obj, args[2], args[3])
+			finally:
+				storage.save()
+			
+			# print(type(attributeValue))
+			# for i in obj.__dict__.values():
+			# 	print(type(i))
+			# print(int)
+			# print(obj.to_dict())
+			# print("---")
+			# setattr(obj, args[2], args[3])
+			# print(obj.__dict__)
+			# print("---again")
+			# print("---")
+			# setattr(obj, args[2], "another email")
+			# print(obj.__dict__)
+			# print("---")
+			# print(dir(obj))
+			# storage.save()
+		
 
 	def default(self, line: str):
 		if len(line.split()) == 1:
