@@ -118,6 +118,29 @@ class HBNBCommand(cmd.Cmd):
 		  by adding or updating attribute
 		"""
 		pass
+
+	def default(self, line: str):
+		if len(line.split()) == 1:
+			cmds_callables_all = [i + ".all()" for i in self.cmds]
+			cmds_callables_count = [i + ".count()" for i in self.cmds]
+			if line in cmds_callables_all:
+				# print(dir(line))
+				# input()
+				line = line.replace(".all()", "")
+				self.do_all(line)
+			elif line in cmds_callables_count:
+				line = line.replace(".count()", "")
+				print(self.count(line))
+			else:
+				super().default(line)
+		else:
+			super().default(line)
+	
+	def count(self, clss):
+		return len([i for i in storage.all().values() if i.__class__.__name__ == clss])
+
+	
+
 				
 
 
@@ -137,6 +160,8 @@ class HBNBCommand(cmd.Cmd):
 				return -2
 		else:
 			return args
+		
+	
 
 
 
