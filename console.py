@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import cmd, sys, json
+import cmd, sys, json, re
 from models import storage, FileStorage
 from models.base_model import BaseModel
 from models.user import User
@@ -123,6 +123,7 @@ class HBNBCommand(cmd.Cmd):
 		if len(line.split()) == 1:
 			cmds_callables_all = [i + ".all()" for i in self.cmds]
 			cmds_callables_count = [i + ".count()" for i in self.cmds]
+			
 			if line in cmds_callables_all:
 				# print(dir(line))
 				# input()
@@ -131,11 +132,28 @@ class HBNBCommand(cmd.Cmd):
 			elif line in cmds_callables_count:
 				line = line.replace(".count()", "")
 				print(self.count(line))
+			elif re.match(r'\b[a-zA-Z]+\.(show)\(.+\)', line):
+	
+				l = line.split("(")
+				clsss = l[0].replace(".show", "")
+				id_ = l[1][:-1]
+				id_ = id_.replace("'", "")
+				id_ = id_.replace("\"", "")
+				self.do_show(f"{clsss} {id_}")
+			elif re.match(r'\b[a-zA-Z]+\.(destroy)\(.+\)', line):
+	
+				l = line.split("(")
+				clsss = l[0].replace(".destroy", "")
+				id_ = l[1][:-1]
+				id_ = id_.replace("'", "")
+				id_ = id_.replace("\"", "")
+				self.do_destroy(f"{clsss} {id_}")
 			else:
 				super().default(line)
 		else:
 			super().default(line)
 	
+
 	def count(self, clss):
 		return len([i for i in storage.all().values() if i.__class__.__name__ == clss])
 
