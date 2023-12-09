@@ -13,8 +13,6 @@ from time import sleep
 from models.base_model import BaseModel
 
 
-
-
 class TestBaseModel_initialization(unittest.TestCase):
     """Unittests for testing the init method of the BaseModel class."""
     def test_no_arguments_init(self):
@@ -55,12 +53,11 @@ class TestBaseModel_initialization(unittest.TestCase):
         bm = BaseModel()
         bm.id = "54321"
         bm.created_at = bm.updated_at = dt
-        bmstr = bm.__str__()        
+        bmstr = bm.__str__()
         self.assertIn("'updated_at': " + dt_repr, bmstr)
         self.assertIn("'id': '54321'", bmstr)
         self.assertIn("'created_at': " + dt_repr, bmstr)
         self.assertIn("[BaseModel] (54321)", bmstr)
-        
 
     def test_args_not_used(self):
         bm = BaseModel(None)
@@ -85,7 +82,6 @@ class TestBaseModel_initialization(unittest.TestCase):
         self.assertEqual(bm.id, "765")
         self.assertEqual(bm.created_at, dt)
         self.assertEqual(bm.updated_at, dt)
-
 
 
 if __name__ == "__main__":

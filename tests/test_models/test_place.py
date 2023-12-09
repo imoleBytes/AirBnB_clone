@@ -57,7 +57,7 @@ class TestPlace_instantiation(unittest.TestCase):
         amstr = m.__str__()
         self.assertIn("[Place] (54321)", amstr)
         self.assertIn("'created_at': " + dt_repr, amstr)
-        self.assertIn("'id': '54321'", amstr)        
+        self.assertIn("'id': '54321'", amstr)
         self.assertIn("'updated_at': " + dt_repr, amstr)
 
     def test_args_unused(self):
